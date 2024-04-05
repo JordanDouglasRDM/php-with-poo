@@ -1,19 +1,22 @@
 {
-    "name": "php/primeiro-projeto",
-    "description": "Meu primeiro projeto de composer",
-    "type": "project",
-    "autoload": {
-        "psr-4": {
-            "Php\\PrimeiroProjeto\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Jordan Douglas",
-            "email": "jordandouglas8515@gmail.com"
-        }
-    ],
-    "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+  "name": "php/primeiro-projeto",
+  "description": "Meu primeiro projeto de composer",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Php\\PrimeiroProjeto\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Jordan Douglas",
+      "email": "jordandouglas8515@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*"
+  },
+  "require": {
+    "symfony/http-foundation": "^7.0"
+  }
 }
