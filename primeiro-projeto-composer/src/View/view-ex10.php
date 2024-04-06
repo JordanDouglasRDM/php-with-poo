@@ -31,8 +31,8 @@ if (isset($_SESSION['level'])) {
 }
 echo '
 <div class="container mt-5 text-center">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
+    <table class="table table-hover">
+        <thead class="table-secondary">
         <tr>
             <th>IMC</th>
             <th>CLASSIFICAÇÃO</th>
@@ -40,27 +40,27 @@ echo '
         </tr>
         </thead>
         <tbody>
-        <tr class="' . ($level == 1 ? 'alert alert-info' : '') . '">
+        <tr class="' . ($level == 1 ? 'table-info' : '') . '">
             <td>MENOR QUE 18,5</td>
             <td>MAGREZA</td>
             <td>0</td>
         </tr>
-        <tr class="' . ($level == 2 ? 'alert alert-info' : '') . '">
+        <tr class="' . ($level == 2 ? 'table-info' : '') . '">
             <td>ENTRE 18,5 E 24,9</td>
             <td>NORMAL</td>
             <td>0</td>
         </tr>
-        <tr class="' . ($level == 3 ? 'alert alert-info' : '') . '">
+        <tr class="' . ($level == 3 ? 'table-info' : '') . '">
             <td>ENTRE 25,0 E 29,9</td>
             <td>SOBREPESO</td>
             <td>I</td>
         </tr>
-        <tr class="' . ($level == 4 ? 'alert alert-info' : '') . '">
+        <tr class="' . ($level == 4 ? 'table-info' : '') . '">
             <td>ENTRE 30,0 E 39,9</td>
             <td>OBESIDADE</td>
             <td>II</td>
         </tr>
-        <tr class="' . ($level == 5 ? 'alert alert-info' : '') . '">
+        <tr class="' . ($level == 5 ? 'table-info' : '') . '">
             <td>MAIOR QUE 40,0</td>
             <td>OBESIDADE GRAVE</td>
             <td>III</td>

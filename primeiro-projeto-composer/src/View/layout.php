@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
-<body data-bs-theme="dark">
+<body id="meuBody" data-bs-theme="dark">
 <nav class="navbar bg-secondary-subtle navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Fatec - PHP</a>
@@ -100,10 +100,8 @@
 
     function alterarTema(tema) {
         localStorage.setItem('temaSelecionado', tema);
-        let meuBody = document.querySelectorAll('.meuBody');
-        meuBody.forEach((body) => {
-            body.setAttribute('data-bs-theme', tema);
-        });
+        const meuBody = document.getElementById("meuBody");
+        meuBody.setAttribute('data-bs-theme', tema);
     }
 </script>
 </body>
