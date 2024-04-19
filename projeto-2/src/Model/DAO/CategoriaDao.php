@@ -69,4 +69,33 @@ class CategoriaDao
             ];
         }
     }
+    public function delete(int $categoriaId): array
+    {
+        try {
+            $sql = 'delete from categorias where id = :categoriaId';
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+            $stmt->bindParam(':categoriaId', $categoriaId);
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new \PDOException('Erro ao excluir categoria');
+            }
+
+            return [
+                'success' => true,
+                'message' => 'Categoria excluída com sucesso!',
+            ];
+
+        } catch (\PDOException $e) {
+            if ($e->getCode() == 23000) {
+                $message = 'Categoria possui um produto vinculado, remova-o e tente novamente.';
+            } else {
+                $message = $e->getMessage();
+            }
+            return [
+                'success' => false,
+                'message' => $message,
+            ];
+        }
+    }
 }

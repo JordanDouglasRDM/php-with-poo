@@ -25,6 +25,7 @@ $r->get('/proj2/{sub}/{view}', [$frontController, 'renderViewMain']);
 
 $r->get('/proj2/categorias/listar', [$categoriaController, 'index']);
 $r->post('/proj2/categorias/inserir', [$categoriaController, 'create']);
+$r->post('/proj2/categorias/excluir', [$categoriaController, 'destroy']);
 
 $r->get('/proj2/produtos/listar', [$produtoController, 'index']);
 $r->post('/proj2/produtos/inserir', [$produtoController, 'create']);

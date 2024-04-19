@@ -9,8 +9,8 @@ class FrontController
 //rederiza o layout com a view
     public function renderViewMain(array $view, array $data = []): string
     {
-        $viewContent = $this->renderView($view, $data);
-        $layoutContent = $this->renderLayout($viewContent);
+        $pathView = $this->renderView($view);
+        $layoutContent = $this->renderLayout($pathView, $data);
 
         $response = new Response($layoutContent);
 
@@ -18,22 +18,19 @@ class FrontController
     }
 
     //renderiza o layout
-    private function renderLayout(string $content): string
+    private function renderLayout(string $path, array $data = []): string
     {
         ob_start();
+        extract($data);
+
         include_once(__DIR__ . '/../View/layout.php');
         return ob_get_clean();
     }
 
     //renderiza a view
-    private function renderView(array $view, array $data = []): string
+    private function renderView(array $view): string
     {
-        ob_start();
-        extract($data);
-
-        include_once $this->validateView($view);
-
-        return ob_get_clean();
+        return $this->validateView($view);
     }
 
     private function validateView(array $view): string

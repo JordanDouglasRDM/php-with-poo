@@ -5,13 +5,12 @@ namespace Php\Projeto2\Controller;
 use Php\Projeto2\Helpers\View;
 use Php\Projeto2\Model\DAO\CategoriaDao;
 use Php\Projeto2\Model\Domain\Categoria;
-use Php\Projeto2\Traits\RedirectToPage;
-use PHP_CodeSniffer\Generators\HTML;
+use Php\Projeto2\Traits\RedirectToPageTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoriaController
 {
-    use RedirectToPage;
+    use RedirectToPageTrait;
 
     public function create()
     {
@@ -52,5 +51,27 @@ class CategoriaController
         }
 
         return $frontController->renderViewMain($view, $categorias);
+    }
+    public function destroy()
+    {
+        try {
+            $categoriaId = $_POST['categoria_id'];
+
+            $categoriaDao = new CategoriaDao();
+            $daoResponse = $categoriaDao->delete($categoriaId);
+
+            if (!$daoResponse['success']) {
+                throw new \Exception($daoResponse['message']);
+            }
+
+            $this->redirectTo($daoResponse, '/proj2/categorias/listar');
+
+        } catch (\Exception $e) {
+            $daoResponse = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+            $this->redirectTo($daoResponse, '/proj2/categorias/listar');
+        }
     }
 }
