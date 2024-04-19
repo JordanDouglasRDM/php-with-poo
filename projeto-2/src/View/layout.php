@@ -45,6 +45,24 @@
                         <li><a class="dropdown-item" href="/proj2/produtos/listar">Listar Produtos</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown ms-4 meuDropDown">
+                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Certificações
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/proj2/certificacoes/inserir">Nova Certificação </a></li>
+                        <li><a class="dropdown-item" href="/proj2/certificacoes/listar">Listar Certificações</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown ms-4 meuDropDown">
+                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Usuários
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/proj2/usuarios/inserir">Novo Usuário</a></li>
+                        <li><a class="dropdown-item" href="/proj2/usuarios/listar">Listar Usuários</a></li>
                     </ul>
                 </li>
             </ul>

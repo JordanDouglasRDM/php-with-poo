@@ -3,6 +3,7 @@
 use Php\Projeto2\Controller\CategoriaController;
 use Php\Projeto2\Controller\FrontController;
 use Php\Projeto2\Controller\ProdutoController;
+use Php\Projeto2\Controller\UsuarioController;
 use Php\Projeto2\Router;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -16,6 +17,7 @@ $r = new Router($method, $path);
 $frontController = new FrontController();
 $categoriaController = new CategoriaController();
 $produtoController = new ProdutoController();
+$usuarioController = new UsuarioController();
 
 $r->get('/', function () {
     header('Location: /proj2/home/dash');
@@ -31,6 +33,9 @@ $r->get('/proj2/produtos/listar', [$produtoController, 'index']);
 $r->post('/proj2/produtos/inserir', [$produtoController, 'create']);
 $r->post('/proj2/produtos/excluir', [$produtoController, 'destroy']);
 
+$r->get('/proj2/usuarios/listar', [$usuarioController, 'index']);
+$r->post('/proj2/usuarios/inserir', [$usuarioController, 'create']);
+$r->post('/proj2/usuarios/excluir', [$usuarioController, 'destroy']);
 
 
 
