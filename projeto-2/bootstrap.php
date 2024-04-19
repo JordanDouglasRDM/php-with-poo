@@ -29,6 +29,8 @@ $r->post('/proj2/categorias/excluir', [$categoriaController, 'destroy']);
 
 $r->get('/proj2/produtos/listar', [$produtoController, 'index']);
 $r->post('/proj2/produtos/inserir', [$produtoController, 'create']);
+$r->post('/proj2/produtos/excluir', [$produtoController, 'destroy']);
+
 
 
 

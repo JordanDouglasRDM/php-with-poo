@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/9f50e2463f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <title>Projeto 2</title>
 </head>
 <body id="meuBody" data-bs-theme="dark">
 <nav class="navbar bg-secondary-subtle navbar-expand-lg">
@@ -22,7 +23,7 @@
         <div class="collapse navbar-collapse ms-4" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link meuButtonHome fs-5 ms-2" aria-current="page" href="#">Home</a>
+                    <a class="nav-link meuButtonHome fs-5 ms-2" aria-current="page" href="/proj2/home/dash">Home</a>
                 </li>
                 <li class="nav-item dropdown ms-4 meuDropDown">
                     <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
@@ -42,6 +43,8 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/proj2/produtos/inserir">Novo Produto</a></li>
                         <li><a class="dropdown-item" href="/proj2/produtos/listar">Listar Produtos</a></li>
+                    </ul>
+                </li>
                     </ul>
                 </li>
             </ul>

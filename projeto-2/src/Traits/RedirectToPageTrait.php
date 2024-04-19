@@ -2,7 +2,7 @@
 
 namespace Php\Projeto2\Traits;
 
-trait RedirectToPage
+trait RedirectToPageTrait
 {
     protected function redirectTo(array $returns, string $location): void
     {

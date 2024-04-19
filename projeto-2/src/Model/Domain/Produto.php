@@ -6,18 +6,18 @@ class Produto
 {
     protected string $nome;
     protected float $valor;
-    protected int $categoriaId;
+    protected int $categoriasId;
 
-    public function __construct(string $nome, float $valor, int $categoriaId)
+    public function __construct(string $nome, float $valor, int $categoriasId)
     {
         $this->setNome($nome);
         $this->setValor($valor);
-        $this->setCategoriaId($categoriaId);
+        $this->setCategoriasId($categoriasId);
     }
 
-    private function setCategoriaId(int $categoriaId): void
+    private function setCategoriasId(int $categoriasId): void
     {
-        $this->categoriaId = $categoriaId;
+        $this->categoriasId = $categoriasId;
     }
 
     private function setNome(string $nome): void
@@ -30,9 +30,9 @@ class Produto
         $this->valor = $valor;
     }
 
-    public function getCategoriaId(): int
+    public function getCategoriasId(): int
     {
-        return $this->categoriaId;
+        return $this->categoriasId;
     }
 
     public function getNome(): string
