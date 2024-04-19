@@ -1,6 +1,7 @@
 <?php
 
 use Php\Projeto2\Controller\CategoriaController;
+use Php\Projeto2\Controller\CertificacaoController;
 use Php\Projeto2\Controller\FrontController;
 use Php\Projeto2\Controller\ProdutoController;
 use Php\Projeto2\Controller\UsuarioController;
@@ -17,6 +18,7 @@ $r = new Router($method, $path);
 $frontController = new FrontController();
 $categoriaController = new CategoriaController();
 $produtoController = new ProdutoController();
+$certificacaoController = new CertificacaoController();
 $usuarioController = new UsuarioController();
 
 $r->get('/', function () {
@@ -32,6 +34,10 @@ $r->post('/proj2/categorias/excluir', [$categoriaController, 'destroy']);
 $r->get('/proj2/produtos/listar', [$produtoController, 'index']);
 $r->post('/proj2/produtos/inserir', [$produtoController, 'create']);
 $r->post('/proj2/produtos/excluir', [$produtoController, 'destroy']);
+
+$r->get('/proj2/certificacoes/listar', [$certificacaoController, 'index']);
+$r->post('/proj2/certificacoes/inserir', [$certificacaoController, 'create']);
+$r->post('/proj2/certificacoes/excluir', [$certificacaoController, 'destroy']);
 
 $r->get('/proj2/usuarios/listar', [$usuarioController, 'index']);
 $r->post('/proj2/usuarios/inserir', [$usuarioController, 'create']);
