@@ -60,8 +60,8 @@ class CertificacaoController
                 'message' => $e->getMessage()
             ];
             $this->redirectTo($daoResponse, '/proj2/certificacoes/listar');
+            exit();
         }
-
     }
 
     public function destroy()
