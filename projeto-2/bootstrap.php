@@ -4,6 +4,7 @@ use Php\Projeto2\Controller\CategoriaController;
 use Php\Projeto2\Controller\CertificacaoController;
 use Php\Projeto2\Controller\FrontController;
 use Php\Projeto2\Controller\ProdutoController;
+use Php\Projeto2\Controller\SeederController;
 use Php\Projeto2\Controller\UsuarioController;
 use Php\Projeto2\Router;
 
@@ -20,6 +21,7 @@ $categoriaController = new CategoriaController();
 $produtoController = new ProdutoController();
 $certificacaoController = new CertificacaoController();
 $usuarioController = new UsuarioController();
+$seederController = new SeederController();
 
 $r->get('/', function () {
     header('Location: /proj2/home/dash');
@@ -44,6 +46,8 @@ $r->post('/proj2/usuarios/inserir', [$usuarioController, 'create']);
 $r->post('/proj2/usuarios/excluir', [$usuarioController, 'destroy']);
 
 
+$r->get('/proj2/cuidado/execucao/rollback/seeder', [$seederController, 'executeSeedWithRollback']);
+$r->get('/proj2/cuidado/execucao/rollback', [$seederController, 'executeRollbackDataBase']);
 
 $result = $r->handler();
 
