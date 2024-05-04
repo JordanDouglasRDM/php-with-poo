@@ -128,4 +128,40 @@ class CertificacaoDao
             ];
         }
     }
+    public function update(Certificacao $certificacao, int $certificacaoId): array
+    {
+        try {
+
+            $titulo = $certificacao->getTitulo();
+            $descricao = $certificacao->getDescricao();
+            $empresa = $certificacao->getEmpresa();
+
+            $sql = 'update certificacoes 
+                    set titulo = :titulo, descricao = :descricao, empresa = :empresa  
+                    where id = :certificacaoId';
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+
+            $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':descricao', $descricao);
+            $stmt->bindParam(':empresa', $empresa);
+            $stmt->bindParam(':certificacaoId', $certificacaoId);
+
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new \PDOException('Erro ao atualizar certificação');
+            }
+
+            return [
+                'success' => true,
+                'message' => 'Certificação atualizada com sucesso!',
+            ];
+
+        } catch (\PDOException $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
 }

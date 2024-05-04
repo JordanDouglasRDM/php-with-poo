@@ -47,6 +47,42 @@ class ProdutoDao
             ];
         }
     }
+    public function update(Produto $produto, int $id): array
+    {
+        try {
+            $sql = "update produtos 
+                    set nome = :nome, valor = :valor, categorias_id = :categorias_id 
+                    where id = :id";
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+
+            $nome = $produto->getNome();
+            $valor = $produto->getValor();
+            $categoriaId = $produto->getCategoriasId();
+
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':valor', $valor);
+            $stmt->bindParam(':categorias_id', $categoriaId);
+            $stmt->bindParam(':id', $id);
+
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new \PDOException('Erro ao atualizar produto');
+            }
+            return [
+                'success' => true,
+                'message' => "Produto atualizado com sucesso!",
+                'model' => $produto
+            ];
+
+        } catch (\PDOException $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'model' => null
+            ];
+        }
+    }
 
     public function getALl(): array
     {

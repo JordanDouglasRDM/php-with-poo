@@ -32,6 +32,26 @@ class CategoriaController
             $this->redirectTo($daoResponse, '/proj2/categorias/listar');
         }
     }
+    public function update(array $id)
+    {
+        try {
+            $descricao = filter_input(INPUT_POST, 'descricao');
+
+            $categoria = new Categoria($descricao);
+            $categoriaDao = new CategoriaDAO();
+
+            $daoResponse = $categoriaDao->update($categoria, intval($id[1]));
+
+            $this->redirectTo($daoResponse, '/proj2/categorias/listar');
+
+        } catch (\Exception $e) {
+            $daoResponse = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+            $this->redirectTo($daoResponse, '/proj2/categorias/listar');
+        }
+    }
 
     public function index()
     {

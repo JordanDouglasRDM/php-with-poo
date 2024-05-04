@@ -83,7 +83,35 @@ class CertificacaoController
                 'success' => false,
                 'message' => $e->getMessage()
             ];
-            $this->redirectTo($daoResponse, '/proj2/categorias/listar');
+            $this->redirectTo($daoResponse, '/proj2/certificacoes/listar');
+        }
+    }
+    public function update(array $id): void
+    {
+        try {
+            $titulo = filter_input(INPUT_POST, 'titulo');
+            $descricao = filter_input(INPUT_POST, 'descricao');
+            $empresa = filter_input(INPUT_POST, 'empresa');
+
+            $data = [$titulo, $descricao, $empresa];
+
+            if (in_array(null, $data)) {
+                throw new \Exception('Verifique os campos obrigatórios para atualizar!');
+            }
+
+            $certificacao = new Certificacao($titulo, $descricao, $empresa, intval($id[1]));
+            $certificacaoDao = new CertificacaoDao();
+
+            $daoResponse = $certificacaoDao->update($certificacao, intval($id[1]));
+
+            $this->redirectTo($daoResponse, '/proj2/certificacoes/listar');
+
+        } catch (\Exception $e) {
+            $daoResponse = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+            $this->redirectTo($daoResponse, '/proj2/certificacoes/listar');
         }
     }
 }

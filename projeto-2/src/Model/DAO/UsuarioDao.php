@@ -45,6 +45,39 @@ class UsuarioDao
             ];
         }
     }
+    public function update(Usuario $usuario, int $id): array
+    {
+        try {
+            $sql = "update usuarios set nome = :nome, cpf = :cpf where id = :id";
+
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+
+            $nome = $usuario->getNome();
+            $cpf = $usuario->getCpf();
+
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':cpf', $cpf);
+            $stmt->bindParam(':id', $id);
+
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new \PDOException('Erro ao atualizar usuário');
+            }
+            return [
+                'success' => true,
+                'message' => "Usuário '{$usuario->getNome()}' alterado com sucesso!",
+                'model' => null
+            ];
+
+        } catch (\PDOException $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'model' => null
+            ];
+        }
+    }
 
     public function getALl(): array
     {

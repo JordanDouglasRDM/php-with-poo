@@ -43,6 +43,36 @@ class CategoriaDao
             ];
         }
     }
+    public function update(Categoria $categoria, int $id): array
+    {
+        try {
+            $sql = "update categorias set descricao = :descricao where id = :id";
+
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+            $descricao = $categoria->getDescricao();
+
+            $stmt->bindParam(':descricao', $descricao);
+            $stmt->bindParam(':id', $id);
+
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new PDOException('Erro ao atualizar categoria');
+            }
+            return [
+                'success' => true,
+                'message' => "Categoria atualizada com sucesso!",
+                'model' => $categoria
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'model' => null
+            ];
+        }
+    }
 
     public function getALl(): array
     {

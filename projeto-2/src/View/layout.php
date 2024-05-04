@@ -2,14 +2,34 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- DataTable -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+
+    <!-- bootstrap - css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- bootstrap - js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ícones -->
     <script src="https://kit.fontawesome.com/9f50e2463f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+    <!-- sweet alert 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Projeto 2</title>
 </head>
 <body id="meuBody" data-bs-theme="dark">
@@ -68,7 +88,7 @@
             </ul>
             <ul class="navbar-nav ms-md-auto navbar-nav-scroll">
                 <li><a href="https://github.com/JordanDouglasRDM" target="_blank" class="nav-link col-lg-auto me-2"><i
-                            data-feather="github"></i></a></li>
+                                data-feather="github"></i></a></li>
                 <li><a href="https://www.linkedin.com/in/jordan-douglas-rosa-de-melo/" target="_blank"
                        class="nav-link col-lg-auto me-2"><i data-feather="linkedin"></i></a></li>
                 <li class="nav-item dropdown ms-4 meuDropDown2">
@@ -78,7 +98,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" onclick="alterarTema('light')">Light <i
-                                    class="fa-regular fa-sun"></i></a></li>
+                                        class="fa-regular fa-sun"></i></a></li>
                         <li><a class="dropdown-item" onclick="alterarTema('dark')">Dark <i class="fa-solid fa-moon"></i></a>
                         </li>
                     </ul>
@@ -130,6 +150,54 @@
         const meuBody = document.getElementById("meuBody");
         meuBody.setAttribute('data-bs-theme', tema);
     }
+
+    $(document).ready(function () {
+        // Inicialização do DataTables com a tradução em português-brasileiro
+        $('.data-table-transform').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json'
+            }
+        });
+    });
+
+
+    function confirmarExclusao(formulario) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "ms-3 btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza que deseja excluir?",
+            text: "Essa ação não pode ser desfeita.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, entendo os riscos!",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                formulario.submit();
+
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.close()
+            }
+        });
+    }
+//     formatação de style das table
+    const minhasTh = document.querySelectorAll('th');
+    const minhasTd = document.querySelectorAll('td');
+    minhasTh.forEach((th)=>{
+        th.className = 'text-center';
+    });
+    minhasTd.forEach((td)=>{
+        td.className = 'text-center';
+    });
+    
 </script>
 </body>
 </html>

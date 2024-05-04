@@ -16,17 +16,45 @@ class ProdutoController
         try {
             $nome = filter_input(INPUT_POST, 'nome');
             $valor = filter_input(INPUT_POST, 'valor');
-            $descricaoCategoria = filter_input(INPUT_POST, 'descricao_categoria');
+            $categoriaId = filter_input(INPUT_POST, 'categoria_id', FILTER_VALIDATE_INT);
 
-            $data = [$nome, $valor, $descricaoCategoria];
+            $data = [$nome, $valor, $categoriaId];
             if (in_array(null, $data)) {
                 throw new \Exception('Verifique os campos obrigatórios!');
             }
 
-            $produto = new Produto($nome, $valor, $descricaoCategoria);
+            $produto = new Produto($nome, $valor, $categoriaId);
             $produtoDao = new ProdutoDao();
 
             $daoResponse = $produtoDao->create($produto);
+
+            $this->redirectTo($daoResponse, '/proj2/produtos/listar');
+
+        } catch (\Exception $e) {
+            $daoResponse = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+            $this->redirectTo($daoResponse, '/proj2/produtos/listar');
+        }
+    }
+    public function update(array $id): void
+    {
+        try {
+            $nome = filter_input(INPUT_POST, 'nome');
+            $valor = filter_input(INPUT_POST, 'valor');
+            $categoriaId = filter_input(INPUT_POST, 'categoria_id', FILTER_VALIDATE_INT);
+
+            $data = [$nome, $valor, $categoriaId];
+
+            if (in_array(null, $data)) {
+                throw new \Exception('Verifique os campos obrigatórios!');
+            }
+
+            $produto = new Produto($nome, $valor, $categoriaId);
+            $produtoDao = new ProdutoDao();
+
+            $daoResponse = $produtoDao->update($produto, intval($id[1]));
 
             $this->redirectTo($daoResponse, '/proj2/produtos/listar');
 

@@ -17,7 +17,7 @@ $categorias = $daoResponse['model'];
         </div>
         <div class="input-group col-md-6">
             <label class="input-group-text" for="inputState">Categorias</label>
-            <select id="inputState" class="form-select" name="descricao_categoria" required>
+            <select id="inputState" class="form-select" name="categoria_id" required>
                 <option selected value="">Opções...</option>
                 <?php foreach ($categorias as $categoria) : ?>
                     <option value="<?= $categoria['id']; ?>">

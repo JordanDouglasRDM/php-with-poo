@@ -37,6 +37,28 @@ class UsuarioController
             $this->redirectTo($daoResponse, '/proj2/usuarios/listar');
         }
     }
+    public function update(array $id): void
+    {
+        try {
+            $nome = filter_input(INPUT_POST, 'nome');
+            $cpf = filter_input(INPUT_POST, 'cpf');
+
+            $usuario = new Usuario($nome, $cpf);
+            $usuarioDao = new UsuarioDao();
+
+            $daoResponse = $usuarioDao->update($usuario, intval($id[1]));
+
+            $this->redirectTo($daoResponse, '/proj2/usuarios/listar');
+
+        } catch (\Exception $e) {
+            $daoResponse = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+            $this->redirectTo($daoResponse, '/proj2/usuarios/listar');
+        }
+    }
+
 
     public function index()
     {
