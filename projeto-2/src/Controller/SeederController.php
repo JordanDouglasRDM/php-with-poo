@@ -26,33 +26,43 @@ class SeederController
 
     public function executeSeedWithRollback()
     {
+        header('Content-Type: application/json');
         try {
+
             $populateResponse = $this->populateCascadeSeedFactory->seedWithRollBack();
 
-            if ($populateResponse['success']) {
+            if (!$populateResponse['success']) {
                 throw new \Exception($populateResponse['message']);
             }
 
-            echo $populateResponse['message'];
+            http_response_code(200);
+
+            return json_encode($populateResponse);
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+
+            http_response_code(500);
+            return json_encode(['message' => $e->getMessage()]);
         }
     }
 
     public function executeRollbackDataBase()
     {
+        header('Content-Type: application/json');
         try {
             $populateResponse = $this->populateCascadeSeedFactory->rollBackDatabase();
 
-            if ($populateResponse['success']) {
+            if (!$populateResponse['success']) {
                 throw new \Exception($populateResponse['message']);
             }
 
-            echo $populateResponse['message'];
+            http_response_code(200);
+
+            return json_encode($populateResponse);
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            http_response_code(500);
+            return json_encode(['message' => $e->getMessage()]);
         }
     }
 }

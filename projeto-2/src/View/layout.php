@@ -130,7 +130,6 @@
     alterarTema();
     defineStyleDasTable();
     modalOfLoading = defineModalLoading();
-
 </script>
 </body>
 </html>
