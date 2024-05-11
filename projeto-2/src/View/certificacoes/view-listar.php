@@ -35,7 +35,7 @@ $usuarios = $daoResponse['model'];
             echo "<td id='{$certificado['id']}' class='open-modal-certificacoes'>{$certificado['titulo']}</td>";
             echo "<td id='{$certificado['id']}' class='open-modal-certificacoes'>{$certificado['descricao']}</td>";
             echo "<td id='{$certificado['id']}' class='open-modal-certificacoes'>{$certificado['empresa']}</td>";
-            echo "<td id='{$certificado['id']}' class='open-modal-certificacoes'>{$certificado['usuarios_id']}</td>";
+            echo "<td id='{$certificado['id']}' class='open-modal-certificacoes'>{$certificado['nome_usuario']}</td>";
             echo "
                 <td>
                     <form action='/proj2/certificacoes/excluir' id='{$certificado['id']}' method='post'>
@@ -52,15 +52,18 @@ $usuarios = $daoResponse['model'];
 </div>
 <!--Define todas as minhas modal para exibir os dados para edição dos usuários-->
 <?php foreach ($certificacoes as $certificado): ?>
-    <div class="modal fade" id="editarCertificacao<?= $certificado['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal fade" id="editarCertificacao<?= $certificado['id'] ?>" tabindex="-1"
+         aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Dados do certificado '<?= $certificado['id']?>'</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Dados do certificado '<?= $certificado['id'] ?>
+                        '</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-<?= $certificado['id'] ?>" class="row g-3" method="post" action="/proj2/certificacoes/alterar/<?= $certificado['id'] ?>" style="margin-top: 60px">
+                    <form id="form-<?= $certificado['id'] ?>" class="row g-3" method="post"
+                          action="/proj2/certificacoes/alterar/<?= $certificado['id'] ?>" style="margin-top: 60px">
                         <div class="input-group col-md-6">
                             <label for="titulo" class="input-group-text">Titulo</label>
                             <input type="text" name="titulo" class="form-control" id="titulo" autofocus
@@ -90,7 +93,8 @@ $usuarios = $daoResponse['model'];
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" id="form-<?= $certificado['id'] ?>" class="btn btn-primary save-changes-certificacoes">
+                    <button type="button" id="form-<?= $certificado['id'] ?>"
+                            class="btn btn-primary save-changes-certificacoes">
                         Salvar
                         Alterações
                     </button>
@@ -99,7 +103,6 @@ $usuarios = $daoResponse['model'];
         </div>
     </div>
 <?php endforeach; ?>
-
 <script>
     const meusTd = document.querySelectorAll('.open-modal-certificacoes');
     const saveChangesCertificacaoButtons = document.querySelectorAll('.save-changes-certificacoes');

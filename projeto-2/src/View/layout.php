@@ -7,7 +7,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
     <!-- DataTable -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -30,12 +31,17 @@
     <!-- sweet alert 2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="/css/view-dash.css">
+
     <title>Projeto 2</title>
 </head>
 <body id="meuBody" data-bs-theme="dark">
 <nav class="navbar bg-secondary-subtle navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Fatec - PHP</a>
+        <a class="navbar-brand" href="#">E-management</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,46 +51,33 @@
                 <li class="nav-item">
                     <a class="nav-link meuButtonHome fs-5 ms-2" aria-current="page" href="/proj2/home/dash">Home</a>
                 </li>
-                <li class="nav-item dropdown ms-4 meuDropDown">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Categorias
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/proj2/categorias/inserir">Nova Categoria</a></li>
-                        <li><a class="dropdown-item" href="/proj2/categorias/listar">Listar Categorias</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown ms-4 meuDropDown">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown ms-4">
+                    <a class="nav-link dropdown-toggle fs-5" id="nav-link-produtos" href="#" role="button"
+                       data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Produtos
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/proj2/produtos/inserir">Novo Produto</a></li>
                         <li><a class="dropdown-item" href="/proj2/produtos/listar">Listar Produtos</a></li>
+                        <li><a class="dropdown-item" href="/proj2/categorias/inserir">Nova Categoria</a></li>
+                        <li><a class="dropdown-item" href="/proj2/categorias/listar">Listar Categorias</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown ms-4 meuDropDown">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Certificações
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/proj2/certificacoes/inserir">Nova Certificação </a></li>
-                        <li><a class="dropdown-item" href="/proj2/certificacoes/listar">Listar Certificações</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown ms-4 meuDropDown">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown ms-4">
+                    <a class="nav-link dropdown-toggle fs-5" id="nav-link-usuarios" href="#" role="button"
+                       data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Usuários
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/proj2/usuarios/inserir">Novo Usuário</a></li>
                         <li><a class="dropdown-item" href="/proj2/usuarios/listar">Listar Usuários</a></li>
+                        <li><a class="dropdown-item" href="/proj2/certificacoes/inserir">Nova Certificação </a></li>
+                        <li><a class="dropdown-item" href="/proj2/certificacoes/listar">Listar Certificações</a></li>
                     </ul>
                 </li>
+
             </ul>
             <ul class="navbar-nav ms-md-auto navbar-nav-scroll">
                 <li><a href="https://github.com/JordanDouglasRDM" target="_blank" class="nav-link col-lg-auto me-2"><i
@@ -107,7 +100,13 @@
         </div>
     </div>
 </nav>
-
+<div class="modal fade" id="my-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="container">
+            <span class="loader meu-loader"></span>
+        </div>
+    </div>
+</div>
 <section>
     <?php
     if (isset($path)) {
@@ -115,42 +114,9 @@
     }
     ?>
 </section>
+<script src="/js/layout.js"></script>
+
 <script>
-    let temaSalvo = localStorage.getItem('temaSelecionado');
-    if (temaSalvo) {
-        alterarTema(temaSalvo);
-    }
-
-    let meuButtonHome = document.querySelector('.meuButtonHome');
-    let dropdownItems = document.querySelectorAll('.dropdown-item');
-    let meuDropDown = document.querySelector('.meuDropDown');
-    let currentUrl = window.location.href;
-    let currentDirectoryArray = currentUrl.split('/');
-    let positionArray = currentDirectoryArray.length - 1;
-    let currentDirectory = currentDirectoryArray[positionArray];
-
-    if (currentDirectory === 'lab-eng-atividades') {
-        meuButtonHome.classList.add('active');
-    } else {
-        let ultimaPosicaoDiretorio = currentDirectory.length - 1
-        let valorACompararDir = currentDirectory[ultimaPosicaoDiretorio];
-
-        meuDropDown.classList.add('active')
-        dropdownItems.forEach((li) => {
-            let ultimaPosicaoLi = li.textContent.length - 1
-            let valorAComparar = li.textContent[ultimaPosicaoLi];
-            if (valorACompararDir === valorAComparar) {
-                li.classList.add('active')
-            }
-        });
-    }
-
-    function alterarTema(tema) {
-        localStorage.setItem('temaSelecionado', tema);
-        const meuBody = document.getElementById("meuBody");
-        meuBody.setAttribute('data-bs-theme', tema);
-    }
-
     $(document).ready(function () {
         // Inicialização do DataTables com a tradução em português-brasileiro
         $('.data-table-transform').DataTable({
@@ -160,44 +126,11 @@
         });
     });
 
+    activeButtonsNavbar();
+    alterarTema();
+    defineStyleDasTable();
+    modalOfLoading = defineModalLoading();
 
-    function confirmarExclusao(formulario) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "ms-3 btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
-            title: "Tem certeza que deseja excluir?",
-            text: "Essa ação não pode ser desfeita.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sim, entendo os riscos!",
-            cancelButtonText: "Cancelar",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                formulario.submit();
-
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.close()
-            }
-        });
-    }
-//     formatação de style das table
-    const minhasTh = document.querySelectorAll('th');
-    const minhasTd = document.querySelectorAll('td');
-    minhasTh.forEach((th)=>{
-        th.className = 'text-center';
-    });
-    minhasTd.forEach((td)=>{
-        td.className = 'text-center';
-    });
-    
 </script>
 </body>
 </html>

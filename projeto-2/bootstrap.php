@@ -50,8 +50,8 @@ $r->post('/proj2/usuarios/alterar/{id}', [$usuarioController, 'update']);
 $r->post('/proj2/usuarios/excluir', [$usuarioController, 'destroy']);
 
 
-$r->get('/proj2/cuidado/execucao/rollback/seeder', [$seederController, 'executeSeedWithRollback']);
-$r->get('/proj2/cuidado/execucao/rollback', [$seederController, 'executeRollbackDataBase']);
+$r->post('/proj2/rollback/seeder', [$seederController, 'executeSeedWithRollback']);
+$r->post('/proj2/rollback', [$seederController, 'executeRollbackDataBase']);
 
 $result = $r->handler();
 
